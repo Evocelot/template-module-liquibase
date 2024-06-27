@@ -1,10 +1,10 @@
-= liquibase-base
+= template-module-liquibase
 
-The Liquibase project for the module-base
+The Liquibase project for the template-module
 collects the changesets necessary to build
-the database schema of the module-base.
+the database schema of the template-module.
 
-Referenced project: link:https://github.com/Evocelot/module-base[module-base]
+Referenced project: link:https://github.com/Evocelot/template-module[template-module]
 
 == Technologies Used
 
@@ -44,7 +44,7 @@ To execute the changelog, run the following command from the root directory of t
 .run-liquibase-changelog
 [source,bash]
 ----
-docker compose -f docker/docker.compose.local.modulebase.liquibase.yml up -d
+docker compose -f docker/docker.compose.local.template-module.liquibase.yml up -d
 ----
 
 === Starting the DBMS Client (optional)
