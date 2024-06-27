@@ -15,7 +15,7 @@ for creating the database schema for the template-module project.
 
 The database schema is as follows:
 
-...
+image::images/template-module-schema.drawio.png[template-module-schema]
 
 == Prerequisites
 
