@@ -6,10 +6,10 @@
 :rouge-style: thankful_eyes
 :icons: font
 
-= liquibase-base
+= template-module-liquibase
 
 A Liquibase-based project that contains the necessary scripts
-for creating the database schema for the module-base project.
+for creating the database schema for the template-module project.
 
 == Schema
 
@@ -34,7 +34,7 @@ The database schema is as follows:
 docker compose -f docker/docker.compose.local.mariadb.yml up -d
 ----
 
-This command will start the `evocelot-modulebase-mariadb` container within the Docker instance,
+This command will start the `evocelot-template-module-mariadb` container within the Docker instance,
 which is the instance of the MariaDB database management system defined in the compose file.
 
 3 - Execute the Liquibase changesets by running the following command:
@@ -42,10 +42,10 @@ which is the instance of the MariaDB database management system defined in the c
 .run-liquibase-changelog
 [source,bash]
 ----
-docker compose -f docker/docker.compose.local.modulebase.liquibase.yml up -d
+docker compose -f docker/docker.compose.local.template-module.liquibase.yml up -d
 ----
 
-This command will execute the `/changelog/liquibase-modulebase-changelog.xml` file,
+This command will execute the `/changelog/liquibase-template-service-changelog.xml` file,
 which creates the necessary database elements for the file-service project.
 
 == Building the Docker image
@@ -61,4 +61,4 @@ docker build -t <image-name>:<tag-name> .
 
 [NOTE]
 The `<image-name>` and `<tag-name>` variables in the command can be set to anything.
-For example, evocelot/modulebase-liquibase:0.1.0
+For example, evocelot/template-module-liquibase:0.1.0

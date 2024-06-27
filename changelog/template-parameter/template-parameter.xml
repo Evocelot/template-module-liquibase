@@ -1,0 +1,52 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="01-create-template_parameter" author="mark.danisovszky">
+        <comment>Creates the template_parameter table</comment>
+
+        <createTable tableName="template_parameter">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template_parameter-x__id"/>
+            </column>
+
+            <column name="template_key" type="VARCHAR(30)"
+                    remarks="The key of the template, the owner of the parameter.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language" type="VARCHAR(5)" remarks="The language of the template">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parameter_key" type="VARCHAR(128)" remarks="The unique identifier of the parameter.">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq-template_parameter-parameter_key"/>
+            </column>
+            <column name="default_value" type="VARCHAR(255)" remarks="The default value of the parameter.">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-add-constraints-to-template_parameter" author="mark.danisovszky">
+        <comment>Defines constraints for the template_parameter table</comment>
+        <addForeignKeyConstraint baseTableName="template_parameter"
+                                 baseColumnNames="template_key"
+                                 referencedColumnNames="template_key"
+                                 referencedTableName="template_data"
+                                 constraintName="fk-template_parameter-template_data"/>
+    </changeSet></databaseChangeLog>

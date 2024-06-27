@@ -1,14 +1,14 @@
 services:
-  evocelot-modulebase-liquibase:
-    container_name: evocelot-modulebase-liquibase
+  evocelot-template-module-liquibase:
+    container_name: evocelot-template-module-liquibase
     image: webdevops/liquibase:mysql
     command: ["update"]
     environment:
       LIQUIBASE_CONTEXTS: local
-      LIQUIBASE_URL: jdbc:mariadb://evocelot-modulebase-mariadb:3306/modulebase
+      LIQUIBASE_URL: jdbc:mariadb://evocelot-template-module-mariadb:3306/template
       LIQUIBASE_USERNAME: root
       LIQUIBASE_PASSWORD: admin
-      LIQUIBASE_CHANGELOG: /liquibase/changelog/liquibase-modulebase-service-changelog.xml
+      LIQUIBASE_CHANGELOG: /liquibase/changelog/liquibase-template-service-changelog.xml
       LIQUIBASE_DRIVER: org.mariadb.jdbc.Driver
     volumes:
       - ../changelog:/liquibase/changelog

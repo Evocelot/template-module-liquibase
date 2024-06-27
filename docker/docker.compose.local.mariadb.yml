@@ -1,6 +1,6 @@
 services:
-  evocelot-modulebase-mariadb:
-    container_name: evocelot-modulebase-mariadb
+  evocelot-template-module-mariadb:
+    container_name: evocelot-template-module-mariadb
     image: library/mariadb:11.3.2
     ports:
       - "3306:3306"

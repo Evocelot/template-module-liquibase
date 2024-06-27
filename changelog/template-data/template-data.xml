@@ -1,0 +1,112 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="01-create-template_data_type" author="mark.danisovszky">
+        <comment>Creates the template_data_type table for defining the enums.</comment>
+        <createTable tableName="template_data_type">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template_data_type-x__id"/>
+            </column>
+
+            <column name="description" type="VARCHAR(100)" remarks="The description of the data type.">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-insert-template_data_type" author="mark.danisovszky">
+        <comment>Insert into the template_data_type table</comment>
+        <insert tableName="template_data_type">
+            <column name="X__ID" value="TEXT"/>
+            <column name="description" value="For the text based templates (ex: sms)"/>
+        </insert>
+        <insert tableName="template_data_type">
+            <column name="X__ID" value="HTML"/>
+            <column name="description" value="For the HTML based templates (ex: email)"/>
+        </insert>
+        <!--        <insert tableName="template_data_type">-->
+        <!--            <column name="X__ID" value="BINARY"/>-->
+        <!--            <column name="description" value="For the binary based templates (ex file)"/>-->
+        <!--        </insert>-->
+    </changeSet>
+
+    <changeSet id="01-create-template_data" author="mark.danisovszky">
+        <comment>Creates the template_data table</comment>
+
+        <createTable tableName="template_data">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template_data-x__id"/>
+            </column>
+
+            <column name="template_key" type="VARCHAR(30)" remarks="The unique identifier of the template.">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq-template_data-template_key"/>
+            </column>
+            <column name="data_type" type="VARCHAR(30)" remarks="The type of the template (enum)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language" type="VARCHAR(5)" remarks="The language of the template">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject" type="VARCHAR(255)" remarks="The subject (used for the messages)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="data" type="BLOB" remarks="The template message">
+                <constraints nullable="false"/>
+            </column>
+            <!--            <column name="default_filename" type="VARCHAR(255)" remarks="The name of the generated file">-->
+            <!--                <constraints nullable="false"/>-->
+            <!--            </column>-->
+            <column name="valid_from" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"
+                    remarks="The start date of the template validity">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_to" type="TIMESTAMP" remarks="The end date of the template validity">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-add-constraints-to-template_data" author="mark.danisovszky">
+        <comment>Defines constraints for the template_data table</comment>
+        <addForeignKeyConstraint baseTableName="template_data"
+                                 baseColumnNames="data_type"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="template_data_type"
+                                 constraintName="fk-template_data-template_data_type"/>
+    </changeSet>
+</databaseChangeLog>
