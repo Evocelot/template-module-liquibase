@@ -17,7 +17,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="parameter_key" type="VARCHAR(128)" remarks="The unique identifier of the parameter.">
-                <constraints nullable="false" unique="true" uniqueConstraintName="uq-template_parameter-parameter_key"/>
+                <constraints nullable="false"/>
             </column>
             <column name="default_value" type="VARCHAR(255)" remarks="The default value of the parameter.">
                 <constraints nullable="true"/>
