@@ -56,8 +56,8 @@
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template_data-x__id"/>
             </column>
 
-            <column name="template_key" type="VARCHAR(30)" remarks="The unique identifier of the template.">
-                <constraints nullable="false" unique="true" uniqueConstraintName="uq-template_data-template_key"/>
+            <column name="template_key" type="VARCHAR(30)" remarks="The identifier of the template.">
+                <constraints nullable="false"/>
             </column>
             <column name="data_type" type="VARCHAR(30)" remarks="The type of the template (enum)">
                 <constraints nullable="false"/>

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run liquibase changelogs" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="docker compose -f docker/docker.compose.local.modulebase.liquibase.yml up -d " />
+    <option name="SCRIPT_TEXT" value="docker compose -f docker/docker.compose.local.template-module.liquibase.yml up -d " />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
