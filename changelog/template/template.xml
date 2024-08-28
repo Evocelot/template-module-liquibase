@@ -1,22 +1,29 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet id="01-create-template_parameter" author="mark.danisovszky">
-        <comment>Creates the template_parameter table</comment>
 
-        <createTable tableName="template_parameter">
+    <changeSet id="01-create-template-table" author="mark.danisovszky">
+        <comment>Creates the template table</comment>
+
+        <createTable tableName="template">
             <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
-                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template_parameter-x__id"/>
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-template-x__id"/>
             </column>
 
-            <column name="template_name" type="VARCHAR(100)"
-                    remarks="The key of the template, the owner of the parameter">
+            <column name="template_name" type="VARCHAR(100)" remarks="The unique identifier of the template">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq-template_name"/>
+            </column>
+            <column name="subject" type="VARCHAR(150)" remarks="The subject of the template">
                 <constraints nullable="false"/>
             </column>
-            <column name="pattern" type="VARCHAR(128)" remarks="The pattern of the parameter">
+            <column name="content" type="BLOB" remarks="The content of the template">
                 <constraints nullable="false"/>
             </column>
-            <column name="default_value" type="VARCHAR(255)" remarks="The default value of the parameter">
+            <column name="valid_from" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"
+                    remarks="The start date of the template validity">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_to" type="TIMESTAMP" remarks="The end date of the template validity">
                 <constraints nullable="true"/>
             </column>
 
@@ -37,14 +44,5 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="01-add-constraints-to-template_parameter" author="mark.danisovszky">
-        <comment>Defines constraints for the template_parameter table</comment>
-        <addForeignKeyConstraint baseTableName="template_parameter"
-                                 baseColumnNames="template_name"
-                                 referencedColumnNames="template_name"
-                                 referencedTableName="template"
-                                 constraintName="fk-template_parameter-template"/>
     </changeSet>
 </databaseChangeLog>
